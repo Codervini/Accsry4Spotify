@@ -3,19 +3,20 @@ import os
 from spotipy.oauth2 import SpotifyPKCE
 import json
 
+######################-----CLIENT SETUP-BEGIN----####################################
 client_id = os.environ.get("SPOTIPY_CLIENT_ID")
 redirect_uri = "http://localhost:6942"
 scop = ["playlist-read-collaborative", "playlist-read-private", "user-read-currently-playing"]
 spotipy_auth_credidentials = SpotifyPKCE(client_id= client_id, redirect_uri= redirect_uri, scope=scop)
-
 sp = spotipy.Spotify(oauth_manager=spotipy_auth_credidentials, language="en")
+######################-----CLIENT SETUP-END----####################################
 
+
+######################-----FUNCTIONS SETUP-BEGIN----#################################
 def jsoner(data, filename):
+    '''Function to write API data to json file'''
     with open(f'{filename}.json', "w") as f:
         json.dump(data, f, indent=8)
-
-
-
 
 def currently_playing_downloader():
     data = sp.currently_playing()
